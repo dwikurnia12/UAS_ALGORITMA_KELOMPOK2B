@@ -1,5 +1,3 @@
-# Dikerjakan oleh Abid Satriyo Maulana (K3525045)
-
 class NodeStack:
     def __init__(self, data):
         self.data = data
