@@ -16,7 +16,7 @@ class BinaryHeap:
     
     def insert(self, order):
         self.arr.append(order)
-        self._heapify_up(len(self,arr) - 1)
+        self._heapify_up(len(self.arr) - 1)
 
     def _heapify_up(self,i):
         while i > 0:

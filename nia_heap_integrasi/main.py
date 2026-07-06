@@ -27,7 +27,7 @@ class SistemLaundry:
             print("Antrean masih kosong.")
             return
 
-        self.data_aktif.insert(order)
+        self.data_aktif.insert(order.order_id, order)
         self.jadwal.insert(order)
 
         print(f"Order diproses admin: {order}")
