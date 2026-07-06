@@ -35,8 +35,8 @@ class SistemLaundry:
             print("Tidak ada order yang siap dikerjakan.")
             return
 
-    order.status = "Sedang Dicuci"
-    print(f"Order sedang dikerjakan: {order}")
+        order.status = "Sedang Dicuci"
+        print(f"Order sedang dikerjakan: {order}")
 
     def selesaikan_order(self, order_id):
         order = self.data_aktif.search(order_id)
