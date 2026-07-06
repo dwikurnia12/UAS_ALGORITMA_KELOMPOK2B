@@ -21,12 +21,16 @@ class SistemLaundry:
         print(f"Order baru masuk antrean: {order}")
 
     def proses_dari_antrean(self):
-        order = self.jadwal.delete_root()
+        order = self.antrean_masuk.dequeue()
+
         if order is None:
-            print("Belum ada order yang perlu dikerjakan.")
+            print("Antrean masih kosong.")
             return
-        order.status = "Sedang Dicuci"
-        print(f"Proses saat ini: {order}")
+
+        self.data_aktif.insert(order)
+        self.jadwal.insert(order)
+
+    print(f"Order diproses admin: {order}")
     
     def kerjakan_prioritas_tertinggi(self):
         order = self.jadwal.delete_root()
@@ -77,16 +81,6 @@ class SistemLaundry:
     def tampilkan_riwayat(self):
         print("Riwayat order (stack, paling atas = paling baru):")
         self.riwayat.display()
-    
-    def kerjakan_prioritas_tertinggi(self):
-        order = self.jadwal.delete_root()
-
-        if order is None:
-            print("Tidak ada order yang siap dikerjakan.")
-            return
-
-        order.status = "Sedang Dicuci"
-        print(f"Order sedang dikerjakan: {order}")
 
     def info_tree(self):
         print(f"Tinggi BST: {self.data_aktif.height()}")
