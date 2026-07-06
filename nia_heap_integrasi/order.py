@@ -3,8 +3,8 @@ from datetime import datetime
 # level prioritas untuk digunakan di heap nanti, semakin kecil semakin diprioritaskan
 
 PRIORITAS_LAYANAN = {
-    "Express": 1,
-    "Reguler": 2,
+    "express": 1,
+    "reguler": 2,
     "cuci_kering": 3,
 }
 
@@ -19,13 +19,19 @@ class Order:
         self.waktu_masuk = datetime.now().strftime("%H:%M:%S")
 
     def estimasi_biaya(self):
-        harga_per_kg = {"Express": 10000, "Reguler": 6000, "cuci_kering": 7000}
+        harga_per_kg = {"express":10000,"reguler":6000,"cuci_kering":7000}
         tarif = harga_per_kg.get(self.jenis_layanan, 6000)
         total = tarif * self.berat_kg
-        if self.jenis_layanan == "Express":
+        if self.jenis_layanan == "express":
             total += 5000
         return total
     
     def __str__(self):
-        return (f"[#{self.order_id}]{self.nama_pelanggan} - {self.jenis_layanan_upper()}"
-                f"({self.berat_kg}kg) | prioritas={self.prioritas} | {self.status} | jam {self.waktu_masuk}")
+        return (
+            f"[#{self.order_id}] {self.nama_pelanggan} - "
+            f"{self.jenis_layanan.upper()} "
+            f"({self.berat_kg} kg) | "
+            f"Prioritas={self.prioritas} | "
+            f"{self.status} | "
+            f"Jam {self.waktu_masuk}"
+        )
