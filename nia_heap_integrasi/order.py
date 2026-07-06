@@ -5,7 +5,7 @@ PRIORITAS_LAYANAN = {
     "reguler": 2,
     "cuci_kering": 3,
 }
-
+    
 class Order:
     def __init__(self, order_id, nama_pelanggan, jenis_layanan, berat_kg):
         self.order_id = order_id
