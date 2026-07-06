@@ -27,6 +27,16 @@ class SistemLaundry:
             return
         order.status = "Sedang Dicuci"
         print(f"Proses saat ini: {order}")
+    
+    def kerjakan_prioritas_tertinggi(self):
+        order = self.jadwal.delete_root()
+
+        if order is None:
+            print("Tidak ada order yang siap dikerjakan.")
+            return
+
+    order.status = "Sedang Dicuci"
+    print(f"Order sedang dikerjakan: {order}")
 
     def selesaikan_order(self, order_id):
         order = self.data_aktif.search(order_id)
