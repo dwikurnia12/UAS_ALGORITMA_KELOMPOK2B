@@ -52,7 +52,7 @@ class SistemLaundry:
         else:
             print(f"Ditemukan: {order}")
     
-    def tampilakan_order_aktif(self):
+    def tampilkan_order_aktif(self):
         print("Daftar order aktif (urut ID, hasil inorder BST):")
         self.data_aktif.display()
 
