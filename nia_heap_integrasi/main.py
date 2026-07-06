@@ -52,7 +52,7 @@ class SistemLaundry:
         else:
             print(f"Ditemukan: {order}")
     
-    def tampilakan_order_aktif(self):
+    def tampilkan_order_aktif(self):
         print("Daftar order aktif (urut ID, hasil inorder BST):")
         self.data_aktif.display()
 
@@ -67,6 +67,16 @@ class SistemLaundry:
     def tampilkan_riwayat(self):
         print("Riwayat order (stack, paling atas = paling baru):")
         self.riwayat.display()
+    
+    def kerjakan_prioritas_tertinggi(self):
+        order = self.jadwal.delete_root()
+
+        if order is None:
+            print("Tidak ada order yang siap dikerjakan.")
+            return
+
+        order.status = "Sedang Dicuci"
+        print(f"Order sedang dikerjakan: {order}")
 
     def info_tree(self):
         print(f"Tinggi BST: {self.data_aktif.height()}")
