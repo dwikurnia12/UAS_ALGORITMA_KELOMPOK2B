@@ -22,15 +22,13 @@ class SistemLaundry:
 
     def proses_dari_antrean(self):
         order = self.antrean_masuk.dequeue()
-
         if order is None:
-            print("Antrean masih kosong.")
+            print("Antrean lagi kosong nih, ga ada yang bisa diproses.")
             return
-
+        order.status = "Menunggu Dicuci (terjadwal)"
         self.data_aktif.insert(order.order_id, order)
         self.jadwal.insert(order)
-
-        print(f"Order diproses admin: {order}")
+        print(f"Order #{order.order_id} udah dijadwalkan buat dicuci.")
     
     def kerjakan_prioritas_tertinggi(self):
         order = self.jadwal.delete_root()
@@ -57,7 +55,7 @@ class SistemLaundry:
         if order is None:
             print("Riwayat kosong, tidak ada yang dapat di undo")
             return
-        print(f "Riwayat terakhir dibatalkan: {order}")
+        print(f"Riwayat terakhir dibatalkan: {order}")
 
     def cari_order(self, order_id):
         order = self.data_aktif.search(order_id)
