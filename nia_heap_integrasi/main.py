@@ -31,10 +31,11 @@ class SistemLaundry:
             print("Antrean lagi kosong nih, belum ada yang bisa diproses.")
             return
         order.status = "Menunggu Dicuci (terjadwal)"
+        
         self.data_aktif.insert(order.order_id, order)
         self.jadwal.insert(order)
         print(f"Order #{order.order_id} sudah dijadwalkan untuk dicuci.")
-
+        
     def kerjakan_prioritas_tertinggi(self):
         order = self.jadwal.delete_root()
         if order is None:
