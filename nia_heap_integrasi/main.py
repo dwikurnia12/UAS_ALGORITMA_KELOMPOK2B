@@ -1,15 +1,10 @@
-# main.py - menyatukan semua modul jadi satu sistem
-# alurnya: order masuk -> Queue -> (diambil) -> BST + Heap -> dikerjain sesuai
-# prioritas heap -> selesai -> dihapus dari BST, dicatat ke Stack sbg riwayat
-#
-# integrasi + testing: anggota 4, dibantu review semua anggota
+# digunakan untuk menyatukan semua modul menjadi satu sistem
 
 from order import Order
 from queue_module import Queue
 from stack_module import Stack
 from bst_module import BST
 from heap_module import BinaryHeap
-
 
 class SistemLaundry:
     def __init__(self):
@@ -28,46 +23,47 @@ class SistemLaundry:
     def proses_dari_antrean(self):
         order = self.antrean_masuk.dequeue()
         if order is None:
-            print("Antrean lagi kosong nih, belum ada yang bisa diproses.")
+            print("Antrean lagi kosong nih, ga ada yang bisa diproses.")
             return
         order.status = "Menunggu Dicuci (terjadwal)"
-        
         self.data_aktif.insert(order.order_id, order)
         self.jadwal.insert(order)
-        print(f"Order #{order.order_id} sudah dijadwalkan untuk dicuci.")
-        
+        print(f"Order #{order.order_id} udah dijadwalkan buat dicuci.")
+    
     def kerjakan_prioritas_tertinggi(self):
         order = self.jadwal.delete_root()
+
         if order is None:
-            print("Belum ada order yang perlu dikerjakan.")
+            print("Tidak ada order yang siap dikerjakan.")
             return
+
         order.status = "Sedang Dicuci"
-        print(f"Sekarang lagi mengerjakan: {order}")
+        print(f"Order sedang dikerjakan: {order}")
 
     def selesaikan_order(self, order_id):
         order = self.data_aktif.search(order_id)
         if order is None:
-            print(f"Order #{order_id} tidak diketemkan di data aktif.")
+            print(f"Order #{order_id} tidak ditemukan di data aktif...")
             return
         order.status = "Selesai"
         self.data_aktif.delete(order_id)
         self.riwayat.push(order)
-        print(f"Order #{order_id} selesai, masuk riwayat: {order}")
+        print(f"Order #{order_id} selesai, masuk ke dalam riwayat: {order}")
 
     def undo_riwayat_terakhir(self):
         order = self.riwayat.pop()
         if order is None:
-            print("Riwayatnya kosong, tidak ada yang bisa di-undo.")
+            print("Riwayat kosong, tidak ada yang dapat di undo")
             return
         print(f"Riwayat terakhir dibatalkan: {order}")
 
     def cari_order(self, order_id):
         order = self.data_aktif.search(order_id)
         if order is None:
-            print(f"Order #{order_id} tidak ada di data order aktif.")
+            print(f"Order #{order_id} tidak ada di data order aktif")
         else:
-            print(f"Ketemu: {order}")
-
+            print(f"Ditemukan: {order}")
+    
     def tampilkan_order_aktif(self):
         print("Daftar order aktif (urut ID, hasil inorder BST):")
         self.data_aktif.display()
@@ -87,8 +83,7 @@ class SistemLaundry:
     def info_tree(self):
         print(f"Tinggi BST: {self.data_aktif.height()}")
         print(f"Jumlah node aktif: {self.data_aktif.count_nodes()}")
-
-
+    
 def cetak_menu():
     print("\n===== SISTEM LAUNDRY KILAT BERSIH =====")
     print("1.  Terima order baru (Queue)")
@@ -104,7 +99,6 @@ def cetak_menu():
     print("11. Info BST (tinggi & jumlah node)")
     print("0.  Keluar")
 
-
 def main():
     sistem = SistemLaundry()
     while True:
@@ -113,7 +107,7 @@ def main():
 
         if pilihan == "1":
             nama = input("Nama pelanggan: ")
-            jenis = input("Jenis layanan (express/reguler/cuci_kering): ")
+            jenis = input("Jenis layanan (Express/Reguler/cuci_kering): ")
             try:
                 berat = float(input("Berat cucian (kg): "))
             except ValueError:
@@ -162,11 +156,11 @@ def main():
             sistem.info_tree()
 
         elif pilihan == "0":
-            print("Terima kasih sudah menggunakan sistem laundry Kilat Bersih!")
+            print("Terima kasih sudah menggunakan jasa laundry Kilat Bersih!")
             break
 
         else:
-            print("Menu tidak ada, coba lagi.")
+            print("Menu tidak tersedia, silahkan pilih menu yang lain")
 
 
 if __name__ == "__main__":
