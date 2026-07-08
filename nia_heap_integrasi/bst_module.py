@@ -1,3 +1,21 @@
+"""
+Binary Search Tree buat nyimpen data order yang lagi aktif.
+Key-nya order_id (nomor urut order, auto increment).
+
+Kenapa pake BST di sini: soalnya kita butuh cari/hapus order
+berdasarkan ID dengan cepat, kalo pake list biasa kan harus looping
+satu-satu (O(n)), kalo pake BST bisa O(log n) selama tree-nya ga
+terlalu miring.
+
+Traversal yang dipake: INORDER. Alasannya karena key = order_id yang
+angkanya makin lama makin gede, jadi inorder otomatis ngasih hasil
+yang urut dari ID kecil ke besar. Pas buat ditampilin ke admin
+sebagai daftar order aktif yang rapi.
+
+anggota 3
+"""
+
+
 class NodeBST:
     def __init__(self, key, data):
         self.key = key
@@ -11,6 +29,7 @@ class BST:
         self.root = None
         self.jumlah_node = 0
 
+    # === INSERT ===
     def insert(self, key, data):
         self.root = self._insert(self.root, key, data)
 
@@ -24,9 +43,12 @@ class BST:
         elif key > node.key:
             node.right = self._insert(node.right, key, data)
         else:
+            # id sama, berarti update aja datanya
             node.data = data
 
         return node
+
+    # === SEARCH ===
     def search(self, key):
         return self._search(self.root, key)
 
@@ -39,6 +61,7 @@ class BST:
             return self._search(node.left, key)
         return self._search(node.right, key)
 
+    # === DELETE ===
     def delete(self, key):
         self.root, hasil_hapus = self._delete(self.root, key)
         return hasil_hapus
@@ -54,14 +77,18 @@ class BST:
             node.right, hasil = self._delete(node.right, key)
             return node, hasil
         else:
+            # ketemu node yang mau dihapus
             hasil = node.data
             self.jumlah_node -= 1
 
+            # kasus 1: ga punya anak / anak satu doang
             if node.left is None:
                 return node.right, hasil
             if node.right is None:
                 return node.left, hasil
 
+            # kasus 2: anaknya dua-duanya ada
+            # cari successor = node terkecil di subtree kanan
             pengganti = node.right
             while pengganti.left is not None:
                 pengganti = pengganti.left
@@ -71,6 +98,8 @@ class BST:
             self.jumlah_node += 1  # dikompensasi karena bakal kepotong lagi di bawah
             node.right, _ = self._delete(node.right, pengganti.key)
             return node, hasil
+
+    # === INORDER TRAVERSAL ===
     def inorder(self):
         hasil = []
         self._inorder(self.root, hasil)
@@ -83,6 +112,7 @@ class BST:
         hasil.append(node.data)
         self._inorder(node.right, hasil)
 
+    # === HEIGHT ===
     def height(self):
         return self._height(self.root)
 
@@ -93,6 +123,7 @@ class BST:
         kanan = self._height(node.right)
         return 1 + max(kiri, kanan)
 
+    # === COUNT NODE ===
     def count_nodes(self):
         return self.jumlah_node
 

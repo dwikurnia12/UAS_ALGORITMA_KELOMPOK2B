@@ -1,5 +1,3 @@
-# demo buat ngetes bst_module sendiri sebelum digabung
-
 from order import Order
 from bst_module import BST
 

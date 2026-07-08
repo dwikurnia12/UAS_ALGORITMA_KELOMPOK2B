@@ -1,14 +1,11 @@
 # Dikerjakan oleh Abid Satriyo Maulana (K3525045)
-
 from datetime import datetime
 
-# level prioritas buat dipake di heap nanti, makin kecil makin diutamain
 PRIORITAS_LAYANAN = {
     "express": 1,
     "reguler": 2,
     "cuci_kering": 3,
 }
-
 
 class Order:
     def __init__(self, order_id, nama_pelanggan, jenis_layanan, berat_kg):

@@ -1,7 +1,11 @@
+# STACK buat riwayat transaksi + fitur undo
+# linked list manual, bukan pakai list.append/pop bawaan
+
 class NodeStack:
     def __init__(self, data):
         self.data = data
         self.next = None
+
 
 class Stack:
     def __init__(self):

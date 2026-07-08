@@ -1,31 +1,39 @@
+# Binary Heap (min-heap) buat nentuin urutan order mana yang harus
+# dikerjain duluan. Pake array/list biasa, bukan heapq.
+#
+# aturan prioritas: angka lebih kecil = lebih diutamain
+# express=1, reguler=2, cuci_kering=3
+# kalo prioritasnya sama, order_id lebih kecil yang menang (lebih dulu masuk)
+
 class BinaryHeap:
     def __init__(self):
         self.arr = []
 
     def is_empty(self):
         return len(self.arr) == 0
-    
+
     def size(self):
-        return len (self.arr)
-    
+        return len(self.arr)
+
     def _menang(self, a, b):
-        # true jika order a harus dikerjakan lebih dulu dari b
+        # true kalo order a harus dikerjain lebih dulu dari b
         if a.prioritas != b.prioritas:
             return a.prioritas < b.prioritas
         return a.order_id < b.order_id
-    
+
     def insert(self, order):
         self.arr.append(order)
-        self._heapify_up(len(self,arr) - 1)
+        self._heapify_up(len(self.arr) - 1)
 
-    def _heapify_up(self,i):
+    def _heapify_up(self, i):
         while i > 0:
             parent = (i - 1) // 2
             if self._menang(self.arr[i], self.arr[parent]):
                 self.arr[i], self.arr[parent] = self.arr[parent], self.arr[i]
-                i =  parent
+                i = parent
             else:
                 break
+
     def delete_root(self):
         if self.is_empty():
             return None
@@ -35,7 +43,7 @@ class BinaryHeap:
             self.arr[0] = terakhir
             self._heapify_down(0)
         return root
-    
+
     def _heapify_down(self, i):
         n = len(self.arr)
         while True:
@@ -48,18 +56,17 @@ class BinaryHeap:
             if terkecil == i:
                 break
             self.arr[i], self.arr[terkecil] = self.arr[terkecil], self.arr[i]
-            i= terkecil
+            i = terkecil
 
     def peek(self):
         if self.is_empty():
             return None
         return self.arr[0]
-    
+
     def display(self):
         if self.is_empty():
-            print("(antrean prioritas kosong)")
+            print("  (antrean prioritas kosong)")
             return
         for i, order in enumerate(self.arr):
-            keterangan = "<-next dikerjakan" if i == 0 else ""
-            print(f" [{i} {order}{keterangan}]")
-
+            keterangan = " <- next dikerjain" if i == 0 else ""
+            print(f"  [{i}] {order}{keterangan}")

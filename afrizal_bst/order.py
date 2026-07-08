@@ -1,5 +1,6 @@
 from datetime import datetime
 
+# level prioritas buat dipake di heap nanti, makin kecil makin diutamain
 PRIORITAS_LAYANAN = {
     "express": 1,
     "reguler": 2,
