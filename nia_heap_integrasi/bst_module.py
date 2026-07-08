@@ -1,21 +1,3 @@
-"""
-Binary Search Tree buat nyimpen data order yang lagi aktif.
-Key-nya order_id (nomor urut order, auto increment).
-
-Kenapa pake BST di sini: soalnya kita butuh cari/hapus order
-berdasarkan ID dengan cepat, kalo pake list biasa kan harus looping
-satu-satu (O(n)), kalo pake BST bisa O(log n) selama tree-nya ga
-terlalu miring.
-
-Traversal yang dipake: INORDER. Alasannya karena key = order_id yang
-angkanya makin lama makin gede, jadi inorder otomatis ngasih hasil
-yang urut dari ID kecil ke besar. Pas buat ditampilin ke admin
-sebagai daftar order aktif yang rapi.
-
-anggota 3
-"""
-
-
 class NodeBST:
     def __init__(self, key, data):
         self.key = key

@@ -1,52 +1,31 @@
-class NodeQueue:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from datetime import datetime
 
-class Queue:
-    def __init__(self):
-        self.head = None 
-        self.tail = None  
-        self.jumlah = 0
+# level prioritas buat dipake di heap nanti, makin kecil makin diutamain
+PRIORITAS_LAYANAN = {
+    "express": 1,
+    "reguler": 2,
+    "cuci_kering": 3,
+}
 
-    def is_empty(self):
-        return self.jumlah == 0
 
-    def enqueue(self, data):
-        node = NodeQueue(data)
-        if self.is_empty():
-            self.head = node
-            self.tail = node
-        else:
-            self.tail.next = node
-            self.tail = node
-        self.jumlah += 1
+class Order:
+    def __init__(self, order_id, nama_pelanggan, jenis_layanan, berat_kg):
+        self.order_id = order_id
+        self.nama_pelanggan = nama_pelanggan
+        self.jenis_layanan = jenis_layanan.lower().strip()
+        self.berat_kg = berat_kg
+        self.prioritas = PRIORITAS_LAYANAN.get(self.jenis_layanan, 2)
+        self.status = "Menunggu Antrean"
+        self.waktu_masuk = datetime.now().strftime("%H:%M:%S")
 
-    def dequeue(self):
-        if self.is_empty():
-            return None
-        node = self.head
-        self.head = node.next
-        if self.head is None:
-            self.tail = None
-        self.jumlah -= 1
-        return node.data
+    def estimasi_biaya(self):
+        harga_per_kg = {"express": 10000, "reguler": 6000, "cuci_kering": 7000}
+        tarif = harga_per_kg.get(self.jenis_layanan, 6000)
+        total = tarif * self.berat_kg
+        if self.jenis_layanan == "express":
+            total += 5000
+        return total
 
-    def peek(self):
-        if self.is_empty():
-            return None
-        return self.head.data
-
-    def size(self):
-        return self.jumlah
-
-    def display(self):
-        if self.is_empty():
-            print("  (antrean kosong)")
-            return
-        curr = self.head
-        no = 1
-        while curr:
-            print(f"  {no}. {curr.data}")
-            curr = curr.next
-            no += 1
+    def __str__(self):
+        return (f"[#{self.order_id}] {self.nama_pelanggan} - {self.jenis_layanan.upper()} "
+                f"({self.berat_kg}kg) | prioritas={self.prioritas} | {self.status} | jam {self.waktu_masuk}")
