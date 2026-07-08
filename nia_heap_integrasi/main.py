@@ -57,7 +57,7 @@ class SistemLaundry:
         if order is None:
             print("Riwayat kosong, tidak ada yang dapat di undo")
             return
-        print("Riwayat terakhir dibatalkan: {order}")
+        print(f"Riwayat terakhir dibatalkan: {order}")
 
     def cari_order(self, order_id):
         order = self.data_aktif.search(order_id)
